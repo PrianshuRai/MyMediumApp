@@ -6,6 +6,7 @@ interface BlogCardProp {
 	content: string;
 	publishedDate: string;
 	key: string;
+	id: string;
 }
 
 export const BlogCard = ({
@@ -13,11 +14,11 @@ export const BlogCard = ({
 	title,
 	content,
 	publishedDate,
-	key,
+	id,
 }: BlogCardProp) => {
 	return (
 		<div className="w-full max-w-2xl mx-auto">
-			<Link to={`/blog`}>
+			<Link to={`/blog/${id}`}>
 				<div className="flex flex-col p-10 border-b border-slate-200 rounded-lg w-full">
 					<div className="flex items-center">
 						<span className="">

@@ -1,6 +1,11 @@
+import { useParams } from "react-router-dom";
+import { FullBlog } from "../components/FullBlog";
+import { Appbar } from "../components/Appbar";
 export const Blog = () => {
-    const blog = useBlo
-    return <div>
+    const params = useParams();
 
-    </div>
+    return (<div className="">
+        <Appbar/>
+        <FullBlog id={params.id}/>
+    </div>);
 }
