@@ -1,4 +1,5 @@
 import { useBlog } from "../hooks";
+import { Avatar } from "./BlogCard";
 
 interface idType {
 	id: string | undefined;
@@ -39,8 +40,8 @@ export const FullBlog = ({ id }: idType) => {
 		return <div>No Data for this blog</div>;
 	}
 	return (
-		<div className="grid grid-cols-12 mt-8 gap-2">
-			<div className="col-span-8 text-center">
+		<div className="grid grid-cols-12 px-10 m-8 gap-2">
+			<div className="col-span-8">
 				<Article data={blog} />
 			</div>
 			<div className="col-span-4">
@@ -58,13 +59,27 @@ interface BlogData {
 
 function Article({ data }: { data: BlogData }) {
 	return (
-		<div className="">
+		<div className="px-2">
 			<div className="text-4xl font-extrabold">{data.title}</div>
-			<div>{data.content}</div>
+            <div className="text-slate-500 pt-2">Posted on: N/A</div>
+			<div className="pt-4">{data.content}</div>
 		</div>
 	);
 }
 
 function UserSection({ data }: { data: BlogData }) {
-	return <div className="text-xl">new data --- {data.author.name}</div>;
+    return (
+		<div className="flex flex-col">
+			<div>Author</div>
+			<div className="flex items-center">
+				<div className="">
+					<Avatar name={data.author.name} size={4} />
+				</div>
+				<div className="px-4">
+					<div className="text-2xl font-semibold">{data.author.name}</div>
+					<span className="text-slate-500 text-sm">Passionate about tech and innovation</span>
+				</div>
+			</div>
+		</div>
+	);
 }
