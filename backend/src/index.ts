@@ -2,7 +2,6 @@ import { Hono } from "hono";
 import { userRoutes } from "./routes/user";
 import { blogRoute } from "./routes/blog";
 import { cors } from "hono/cors";
-import { PrismaClient } from "@prisma/client/edge";
 
 const app = new Hono<{ Bindings: {
     DATABASE_URL: string;

@@ -1,4 +1,10 @@
 {
     "postman.settings.dotenv-detection-notification-visibility": false,
-    "github.copilot.editor.enableAutoCompletions": false
+    "github.copilot.editor.enableAutoCompletions": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
 }

@@ -61,3 +61,36 @@ export const useBlog = ({ id }: {id:string}) => {
         blog
     }
 }
+
+interface dataObj {
+    title: string;
+    content: string;
+}
+
+export const usePublish = async ({data}: dataObj) => {
+    const [loading, setLoading] = useState(false);
+    const [saveStatus, setSaveStatus] = useState(false);
+
+    const response = await axios.post(`${BACKENDURL}/api/v1/blog/create`, {
+        title: data.title,
+        content: data.content
+    }, {
+        headers: {
+            Authorization: localStorage.getItem("token")
+        }
+    })
+
+    if (response.status === 200) {
+        setSaveStatus(response.data.id);
+        setLoading(false);
+    } else {
+        alert("Error saving blog");
+        setSaveStatus(response.data.id);
+        setLoading(false);
+    }
+
+    return {
+        loading,
+        saveStatus
+    };
+}

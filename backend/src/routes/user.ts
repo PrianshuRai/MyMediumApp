@@ -47,7 +47,8 @@ userRoutes.post("/signup", async (c) => {
 
 		const jwtToken = await sign({ id: user.id }, c.env?.JWT_CODE);
 		console.log(`generating jwtToken: ${jwtToken}`);
-		return c.json({ jwtToken });
+		c.header("Authorization", `Bearer ${jwtToken}`);
+		return c.json({ JWT_CODE: jwtToken });
 	} catch (e) {
 		console.log(`error:${e}`);
 		c.status(403);

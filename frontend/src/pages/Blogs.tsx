@@ -18,16 +18,6 @@ export function Blogs() {
 	return (
 		<div>
 			<Appbar />
-			<div className="p-2">
-				<BlogCard
-					key="1"
-					id="1"
-					authorName="Prianshu Rai"
-					title="How an ugly single page website makes $500 a month without affiliate marketing"
-					content="Once upon a time in a digital realm, a curious coder embarked on an epic journey through lines of code, seeking the perfect algorithm."
-					publishedDate="07-03-2025"
-				/>
-			</div>
 			<div>
 				{blogs?.map((blog) => {
 					console.log(`all blog: ${blog.id}`);
@@ -38,16 +28,6 @@ export function Blogs() {
 						content={blog.content}
 						publishedDate={blog.published} />
 				})}
-			</div>
-			<div>
-				<BlogCard
-					key="1"
-					id="1"
-					authorName="Prianshu Rai"
-					title="How an ugly single page"
-					content="Once upon a time in a digital realm,"
-					publishedDate="07-03-2025"
-				/>
 			</div>
 		</div>
 	);
