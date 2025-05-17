@@ -2,14 +2,25 @@ import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKENDURL } from "../config";
+import { Dialog } from "./Dialog";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
+	const [isOpen, setIsOpen] = useState(false);
 	const navigate = useNavigate();
+	const [errorMsg, setErrorMsg] = useState(null);
 	const [postInputs, setPostInputs] = useState({
 		name: "",
 		email: "",
 		password: "",
 	});
+
+	function manageDialog(param: string) {
+		if (param === "open") {
+			setIsOpen(true);
+		} else {
+			setIsOpen(false);
+		}
+	}
 
 	async function sendRequest() {
 		try {
@@ -19,6 +30,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 				}`,
 				postInputs
 			);
+
 			console.log(`response: ${JSON.stringify(response)}`);
 			const jwt = response.data.JWT_CODE;
 			console.log(`jwt-->> ${jwt}`);
@@ -26,7 +38,17 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 			navigate("/blogs");
 		} catch (error) {
 			console.log(`error: ${error}`);
-			alert(error);
+			if (axios.isAxiosError(error) && error.response?.status === 403) {
+				manageDialog("open");
+				setErrorMsg(error.response.data.error);
+			} else if (
+				axios.isAxiosError(error) &&
+				error.response?.data.status === 500
+			) {
+				manageDialog("open");
+				setErrorMsg(error.response.data.error);
+			}
+			
 		}
 	}
 
@@ -90,6 +112,11 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 					{type === "signin" ? "Signin" : "Signup"}
 				</button>
 			</div>
+			<Dialog
+					message={ errorMsg ? errorMsg : "Something went wrong"}
+					isOpen={isOpen}
+					onClose={() => manageDialog("close")}
+				/>
 		</div>
 	);
 };

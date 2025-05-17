@@ -72,7 +72,8 @@ userRoutes.post("/signin", async (c) => {
 	
 	if (!userCheck) {
 		c.status(403);
-		return c.text(`Details not found`);
+		console.log(`user not found ${userCheck}`);
+		return c.json({ error: "user not found" });
 	}
 	const jwtToken = await sign({ id: userCheck.id }, c.env?.JWT_CODE);
 	c.header("Authorization", `Bearer ${jwtToken}`);
